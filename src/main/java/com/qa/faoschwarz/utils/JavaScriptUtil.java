@@ -21,4 +21,9 @@ public class JavaScriptUtil {
 		js.executeScript("arguments[0].click();", element);
 	}
 
+	public String getElementValueByJS(String  qrySelector) {
+		return js.executeScript(
+	            "return document.querySelector('"+qrySelector+"').value;"
+		        ).toString();
+	}
 }

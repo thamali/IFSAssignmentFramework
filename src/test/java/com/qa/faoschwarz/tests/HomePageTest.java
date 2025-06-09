@@ -1,6 +1,7 @@
 package com.qa.faoschwarz.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import com.qa.faoschwarz.base.BaseTest;
@@ -11,6 +12,7 @@ import static com.qa.faoschwarz.constants.AppConstants.*;
 import java.util.List;
 
 public class HomePageTest extends BaseTest {
+	
 
 	@Test(description = "Verify Home Page Title")
 	public void homePageTitleTest() {

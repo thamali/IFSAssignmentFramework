@@ -10,7 +10,17 @@ public class ProductInforPageTest extends BaseTest {
 
 	@DataProvider
 	public Object[][] getProductTestData() {
-		return new Object[][] { { "cars", "Ambulance", "Hurry Ambulance Crazy Motors Car Toy" },
+		return new Object[][] { 
+			{ "cars", "Ambulance", "Hurry Ambulance Crazy Motors Car Toy" },
+
+		};
+
+	}
+	
+	@DataProvider
+	public Object[][] getProductQuantityTestData() {
+		return new Object[][] { 
+			{ "cars", "Ambulance", 3 },
 
 		};
 
@@ -24,6 +34,16 @@ public class ProductInforPageTest extends BaseTest {
 		String actProductHeader = productInforPage.getProductHeader();
 		Assert.assertEquals(actProductHeader, FullProductName);
 
+	}
+	
+	@Test(description = "Verify selected product quantity is updated" ,dataProvider = "getProductQuantityTestData")
+	public void increaseQantityTest(String searchProduct, String productName, int desiredQuantity) {
+		searchResultsPage = homePage.doSearch(searchProduct);
+		searchResultsPage.doSortByAsc();
+		productInforPage = searchResultsPage.selectProduct(productName);
+		int actQuantity=productInforPage.increaseQantityWithPlusButton(desiredQuantity);
+		Assert.assertEquals(actQuantity, desiredQuantity);
+		
 	}
 
 }
