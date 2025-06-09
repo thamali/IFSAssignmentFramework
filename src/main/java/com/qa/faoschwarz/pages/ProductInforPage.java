@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.qa.faoschwarz.constants.AppConstants;
+import com.qa.faoschwarz.exceptions.BrowserException;
 import com.qa.faoschwarz.utils.ElementUtil;
 import com.qa.faoschwarz.utils.JavaScriptUtil;
 
@@ -21,6 +22,7 @@ public class ProductInforPage {
 			"//input[@id='Quantity-template--16759263133783__main7403307139159']/parent::div//button[@aria-label='Increase item quantity by one']");
 	private final By quantityInput = By.xpath("//input[@type='text' and @name='quantity']");
 	private String quantityJSQuarySelector = "input[name=\"quantity\"]";
+	private final By addToCartBtn=By.cssSelector("#AddToCart-");
 
 	public ProductInforPage(WebDriver driver) {
 		this.driver = driver;
@@ -72,7 +74,7 @@ public class ProductInforPage {
 			int newQuantity = Integer.parseInt(updatedQuantity);
 
 			if (newQuantity <= currentQuantity) {
-				throw new RuntimeException("Quantity did not increase after clicking plus button");
+				throw new BrowserException("Quantity did not increase after clicking plus button");
 			}
 
 			currentQuantity = newQuantity;
@@ -81,6 +83,12 @@ public class ProductInforPage {
 		System.out.println("Clicked plus button attempts : " + clickCount);
 		return currentQuantity;
 
+	}
+	
+	public CartSliderPage addProductToCart() {
+		eleUtil.doClick(addToCartBtn);
+		return new CartSliderPage(driver);
+		
 	}
 
 }

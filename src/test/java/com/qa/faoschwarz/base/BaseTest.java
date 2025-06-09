@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeTest;
 
 import com.qa.faoschwarz.api.GetProductListAPI;
 import com.qa.faoschwarz.factory.DriverFactory;
+import com.qa.faoschwarz.pages.CartSliderPage;
 import com.qa.faoschwarz.pages.HomePage;
 import com.qa.faoschwarz.pages.ProductInforPage;
 
@@ -17,12 +18,13 @@ public class BaseTest {
 	
 	WebDriver driver;
 	DriverFactory df;
-	protected Properties prop;
+	Properties prop;
 	
 	protected HomePage homePage;
 	protected SearchResultsPage searchResultsPage;
 	protected GetProductListAPI getProductListApi;
 	protected ProductInforPage productInforPage;
+	protected CartSliderPage cartSliderPage;
 	
 	@BeforeTest
 	public void setup() {
