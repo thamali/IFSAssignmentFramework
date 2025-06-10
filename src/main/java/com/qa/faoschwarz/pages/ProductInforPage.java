@@ -87,6 +87,7 @@ public class ProductInforPage {
 	
 	public CartSliderPage addProductToCart() {
 		eleUtil.doClick(addToCartBtn);
+		
 		return new CartSliderPage(driver);
 		
 	}

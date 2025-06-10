@@ -46,6 +46,12 @@ public class SearchResultsPage {
 		System.out.println("Actual product price list before sort" + priceListBeforeSort);
 
 		eleUtil.doClickWithWait(priceAsc, AppConstants.DEFAULT_TIMEOUT);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		List<Double> priceListAfterSort = getProductPriceData();
 		System.out.println("Actual product price list after sort" + priceListAfterSort);

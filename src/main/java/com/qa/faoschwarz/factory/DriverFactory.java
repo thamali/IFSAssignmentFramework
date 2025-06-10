@@ -3,15 +3,19 @@ package com.qa.faoschwarz.factory;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import com.qa.faoschwarz.exceptions.BrowserException;
+import com.qa.faoschwarz.utils.JavaScriptUtil;
 
 public class DriverFactory {
 
@@ -25,8 +29,8 @@ public class DriverFactory {
 	 * @param browserName
 	 */
 	public WebDriver initDriver(Properties prop) {
-		
-		String browserName=prop.getProperty("browser");
+
+		String browserName = prop.getProperty("browser");
 
 		System.out.println("Browser Name :" + browserName);
 
@@ -48,30 +52,32 @@ public class DriverFactory {
 			throw new BrowserException("===INVALID BROWSER===");
 
 		}
-        driver.get(prop.getProperty("url"));
-        driver.manage().window().maximize();
-        driver.manage().deleteAllCookies();
-        return driver;
+		driver.get(prop.getProperty("url"));
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+
+		return driver;
 	}
-	
+
 	/**
 	 * this is used to init the config properties
+	 * 
 	 * @return
 	 */
-	
+
 	public Properties initProp() {
-		prop=new Properties();
+		prop = new Properties();
 		try {
-			FileInputStream ip=new FileInputStream("src/test/resources/config/config.properties");
+			FileInputStream ip = new FileInputStream("src/test/resources/config/config.properties");
 			prop.load(ip);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return prop;
-		
+
 	}
 
 }

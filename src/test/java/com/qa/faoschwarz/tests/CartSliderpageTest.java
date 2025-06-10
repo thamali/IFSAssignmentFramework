@@ -44,5 +44,21 @@ public class CartSliderpageTest extends BaseTest {
 		Assert.assertEquals(actQuantity, currentQuantity);
 		
 	}
+	
+	@Test(description = "Verify cartSlider subtotal is matched with calculated total", dataProvider = "getProductQuantityTestData")
+	public void CartSliderSubTotalTest(String searchProduct, String productName, int desiredQuantity){
+		searchResultsPage = homePage.doSearch(searchProduct);
+		searchResultsPage.doSortByAsc();
+		productInforPage = searchResultsPage.selectProduct(productName);
+		productInforPage.increaseQantityWithPlusButton(desiredQuantity);
+		
+		cartSliderPage=productInforPage.addProductToCart();	
+		double expectedSubtotal=cartSliderPage.calculateCartTotal();
+		double actualSubtotal=cartSliderPage.getActualSubTotal();
+		
+		Assert.assertEquals(actualSubtotal, expectedSubtotal);
+		
+		
+	}
 
 }
