@@ -15,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
 import com.qa.faoschwarz.exceptions.BrowserException;
+import com.qa.faoschwarz.exceptions.FrameworkException;
 import com.qa.faoschwarz.utils.JavaScriptUtil;
 
 public class DriverFactory {
@@ -66,16 +67,44 @@ public class DriverFactory {
 	 */
 
 	public Properties initProp() {
-		prop = new Properties();
+		
+		String envName=System.getProperty("env");
+		FileInputStream ip=null;
+		prop=new Properties();
 		try {
-			FileInputStream ip = new FileInputStream("src/test/resources/config/config.properties");
-			prop.load(ip);
-		} catch (FileNotFoundException e) {
+		if(envName==null) {
+			System.out.println("env is null,hence running the tests on QA env by defualt..");
+			ip=new FileInputStream("src\\test\\resources\\config\\qa.config.properties");
+			
+		}
+		else {
+			System.out.println("Running tests on env" + envName);
+			switch (envName.toLowerCase().trim()) {
+			case "qa":
+				ip=new FileInputStream("src/test/resources/config/qa.config.properties");
+				break;
+			case "stg":
+				ip=new FileInputStream("src/test/resources/config/stg.config.properties");
+				break;
+			case "prod":
+				ip=new FileInputStream("src/test/resources/config/config.properties");
+				break;
+
+			default:
+				throw new FrameworkException("===INVALID ENV NAME===" + envName);
+				
+			}
+		}
+		}catch(FileNotFoundException e){
 			e.printStackTrace();
+			}
+		try {
+			prop.load(ip);
 		} catch (IOException e) {
+	
 			e.printStackTrace();
 		}
-
+		
 		return prop;
 
 	}
