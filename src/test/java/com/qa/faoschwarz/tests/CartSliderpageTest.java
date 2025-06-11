@@ -60,5 +60,19 @@ public class CartSliderpageTest extends BaseTest {
 		
 		
 	}
+	
+	@Test(description = "Verify chatIcon displays on the cartslider popup", dataProvider = "getProductQuantityTestData")
+	public void validateChatIcon(String searchProduct, String productName, int desiredQuantity){
+		searchResultsPage = homePage.doSearch(searchProduct);
+		searchResultsPage.doSortByAsc();
+		productInforPage = searchResultsPage.selectProduct(productName);
+		productInforPage.increaseQantityWithPlusButton(desiredQuantity);
+		
+		cartSliderPage=productInforPage.addProductToCart();	
+		
+		Assert.assertTrue(cartSliderPage.isChatIconDisplayOnCartSlider());
+		
+		
+	}
 
 }

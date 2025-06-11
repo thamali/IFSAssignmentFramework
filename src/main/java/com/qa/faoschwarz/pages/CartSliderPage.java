@@ -1,11 +1,14 @@
 package com.qa.faoschwarz.pages;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.faoschwarz.constants.AppConstants;
 import com.qa.faoschwarz.exceptions.BrowserException;
@@ -23,6 +26,8 @@ public class CartSliderPage {
 	private final By CartSliderHeader = By.xpath("//div[@id='CartDrawer']//div[@class='h2 drawer__title']");
 	private final By cartItems = By.xpath("//div[@class='cart__items']");
 	private final By subTotal = By.xpath("//div[contains(@class,'ajaxcart__subtotal')]/following-sibling::div");
+	private final By framelocator = By.xpath("//iframe[@id='chat-button' and @title='Gorgias live chat messenger']");
+	private final By chatIcon = By.xpath("//button[@id='gorgias-chat-messenger-button']");
 
 	public CartSliderPage(WebDriver driver) {
 		this.driver = driver;
@@ -74,7 +79,7 @@ public class CartSliderPage {
 
 		for (WebElement item : itemsCountList) {
 			try {
-				
+
 				String productName = getItemName(item);
 
 				int quantity = getQuantityOfEachProduct(item);
@@ -163,8 +168,7 @@ public class CartSliderPage {
 
 	}
 
-	public double getActualSubTotal(){
-		
+	public double getActualSubTotal() {
 
 		WebElement subTotalElement = eleUtil.WaitforElementVisible(subTotal, AppConstants.MEDIUM_DEFAULT_TIMEOUT);
 
@@ -172,6 +176,29 @@ public class CartSliderPage {
 		System.out.println("Sub Total: $" + subTotalVal);
 
 		return Double.parseDouble(subTotalVal);
+
+	}
+
+	public boolean isChatIconDisplayOnCartSlider() {
+		try {
+
+			System.out.println("Switching to iframe...");
+
+			eleUtil.waitForFrameAndSwitchToIt(framelocator, AppConstants.DEFAULT_TIMEOUT);
+			System.out.println("Successfully switched to iframe");
+
+			Thread.sleep(2000);
+
+			WebElement chatIconElement = eleUtil.WaitforElementVisible(chatIcon, AppConstants.DEFAULT_TIMEOUT);
+
+			return chatIconElement.isDisplayed();
+
+		} catch (Exception e) {
+			throw new BrowserException("===Chat icon not displayed========");
+		} finally {
+
+			driver.switchTo().defaultContent();
+		}
 
 	}
 }

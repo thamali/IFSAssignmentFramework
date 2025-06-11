@@ -99,7 +99,7 @@ public class ElementUtil {
 		try {
 			return getElement(locator).isDisplayed();
 		} catch (NoSuchElementException e) {
-			// TODO: handle exception
+
 			System.out.println("Element is not presence on the page :" + locator);
 			return false;
 		}
@@ -156,6 +156,12 @@ public class ElementUtil {
 		} catch (TimeoutException e) {
 			return null;
 		}
+
+	}
+
+	public void waitForFrameAndSwitchToIt(By framelocator, int timeout) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(framelocator));
 
 	}
 
