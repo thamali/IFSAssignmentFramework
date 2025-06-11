@@ -9,9 +9,13 @@ import com.qa.faoschwarz.utils.JavaScriptUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 
+import com.beust.jcommander.Parameter;
 import com.qa.faoschwarz.api.GetProductListAPI;
 import com.qa.faoschwarz.constants.AppConstants;
 import com.qa.faoschwarz.exceptions.BrowserException;
@@ -34,27 +38,31 @@ public class BaseTest {
 	protected ProductInforPage productInforPage;
 	protected CartSliderPage cartSliderPage;
 
-	@BeforeTest
-	public void setup() {
+	@Parameters({ "browser" })
+	@BeforeMethod
+	public void setup(String browserName) {
 		df = new DriverFactory();
 		prop = df.initProp();
+
+		if (browserName != null) {
+			prop.setProperty("browser", browserName);
+		}
+
 		driver = df.initDriver(prop);
 
 		js = new JavaScriptUtil(driver);
 		eleUtil = new ElementUtil(driver);
 
-		
 		js.injectPopupBlockingCSS();
 		js.removePopupElements();
 		js.disablePopupWithJavaScript();
 
-		
 		acceptCookies();
 		homePage = new HomePage(driver);
 
 	}
 
-	@AfterTest
+	@AfterMethod
 	public void tearDown() {
 		driver.quit();
 	}

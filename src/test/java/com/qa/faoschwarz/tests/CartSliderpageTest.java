@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 import com.qa.faoschwarz.base.BaseTest;
 
-public class CartSliderpageTest extends BaseTest {
+public class CartSliderPageTest extends BaseTest {
 	
 	
 	@DataProvider

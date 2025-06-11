@@ -1,13 +1,17 @@
 package com.qa.faoschwarz.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.faoschwarz.utils.ElementUtil;
 
 import static com.qa.faoschwarz.constants.AppConstants.*;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +50,7 @@ public class HomePage {
 	}
 
 	public List<String> getHomePageSiteNavHeaders() {
+		
 		List<WebElement> navHeaderList = eleUtil.getElements(siteNavHeaders);
 		List<String> navHeadertextList = new ArrayList<String>();
 
@@ -59,7 +64,7 @@ public class HomePage {
 
 	public boolean getSearchLayOut() {
 		eleUtil.doClick(searchIcon);
-		return eleUtil.isElementDisplayed(searchLayout);
+		return eleUtil.isElementDisplayed(searchLayout); 
 
 	}
 

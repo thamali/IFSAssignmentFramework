@@ -98,6 +98,7 @@ public class ElementUtil {
 	public boolean isElementDisplayed(By locator) {
 		try {
 			return getElement(locator).isDisplayed();
+		
 		} catch (NoSuchElementException e) {
 
 			System.out.println("Element is not presence on the page :" + locator);

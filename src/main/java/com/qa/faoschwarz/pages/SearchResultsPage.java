@@ -40,12 +40,12 @@ public class SearchResultsPage {
 	}
 
 	public void doSortByAsc() {
-		eleUtil.doClickWithWait(sortByDropdown, AppConstants.DEFAULT_TIMEOUT);
+		eleUtil.doClickWithWait(sortByDropdown, AppConstants.MEDIUM_DEFAULT_TIMEOUT);
 
 		List<Double> priceListBeforeSort = getProductPriceData();
 		System.out.println("Actual product price list before sort" + priceListBeforeSort);
 
-		eleUtil.doClickWithWait(priceAsc, AppConstants.DEFAULT_TIMEOUT);
+		eleUtil.doClickWithWait(priceAsc, AppConstants.MEDIUM_DEFAULT_TIMEOUT);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
