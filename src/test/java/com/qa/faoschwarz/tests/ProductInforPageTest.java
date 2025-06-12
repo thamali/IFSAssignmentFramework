@@ -6,6 +6,13 @@ import org.testng.annotations.Test;
 
 import com.qa.faoschwarz.base.BaseTest;
 
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+
+@Feature("FAOschwarz-Quantity Selection Feature")
+@Owner("Thamali")
 public class ProductInforPageTest extends BaseTest {
 
 	@DataProvider
@@ -26,6 +33,7 @@ public class ProductInforPageTest extends BaseTest {
 
 	}
 
+	@Severity(SeverityLevel.CRITICAL)
 	@Test(description = "Verify selected product is loaded properly in product load page", dataProvider = "getProductTestData")
 	public void ProductHeaderTest(String searchProduct, String productName, String FullProductName) {
 		searchResultsPage = homePage.doSearch(searchProduct);
@@ -36,6 +44,7 @@ public class ProductInforPageTest extends BaseTest {
 
 	}
 	
+	@Severity(SeverityLevel.CRITICAL)
 	@Test(description = "Verify selected product quantity is updated" ,dataProvider = "getProductQuantityTestData")
 	public void increaseQantityTest(String searchProduct, String productName, int desiredQuantity) {
 		searchResultsPage = homePage.doSearch(searchProduct);

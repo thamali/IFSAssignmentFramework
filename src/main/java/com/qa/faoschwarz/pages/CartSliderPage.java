@@ -16,6 +16,7 @@ import com.qa.faoschwarz.utils.ElementUtil;
 import com.qa.faoschwarz.utils.JavaScriptUtil;
 
 import groovyjarjarantlr4.v4.parse.ANTLRParser.throwsSpec_return;
+import io.qameta.allure.Step;
 
 public class CartSliderPage {
 
@@ -36,11 +37,13 @@ public class CartSliderPage {
 
 	}
 
+	@Step("getting cart slider header")
 	public String getCartSliderHeader() {
 		return eleUtil.WaitforElementVisible(CartSliderHeader, AppConstants.DEFAULT_TIMEOUT).getText();
 
 	}
-
+ 
+	@Step("checking displayed :{0} product quantity of the cart")
 	public int getProductQuantity(String productname) {
 
 		List<WebElement> itemsCountList = eleUtil.WaitForAllElementsVisible(cartItems, AppConstants.DEFAULT_TIMEOUT);
@@ -69,7 +72,8 @@ public class CartSliderPage {
 		return 0;
 
 	}
-
+	
+	@Step("calculate all item lists price total")
 	public double calculateCartTotal() {
 
 		List<WebElement> itemsCountList = eleUtil.WaitForAllElementsVisible(cartItems, AppConstants.DEFAULT_TIMEOUT);
@@ -168,6 +172,7 @@ public class CartSliderPage {
 
 	}
 
+	@Step("getting displayed sub total of the cart")
 	public double getActualSubTotal() {
 
 		WebElement subTotalElement = eleUtil.WaitforElementVisible(subTotal, AppConstants.MEDIUM_DEFAULT_TIMEOUT);
@@ -179,6 +184,7 @@ public class CartSliderPage {
 
 	}
 
+	@Step("checking chatIcon is displayed on the cart slider")
 	public boolean isChatIconDisplayOnCartSlider() {
 		try {
 

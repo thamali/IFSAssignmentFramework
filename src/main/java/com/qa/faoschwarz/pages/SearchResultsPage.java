@@ -15,6 +15,8 @@ import com.qa.faoschwarz.constants.AppConstants;
 import com.qa.faoschwarz.utils.ElementUtil;
 import com.qa.faoschwarz.utils.JavaScriptUtil;
 
+import io.qameta.allure.Step;
+
 public class SearchResultsPage {
 
 	WebDriver driver;
@@ -25,7 +27,7 @@ public class SearchResultsPage {
 	private final By priceAsc = By.xpath("//div[@data-value='PRICE_ASC']");
 	private final By productPrice = By.xpath("//span[contains(@class, \"kuSalePrice\")]");
 
-	private Map<String, String> productPriceMap;
+	//private Map<String, String> productPriceMap;
 
 	public SearchResultsPage(WebDriver driver) {
 		this.driver = driver;
@@ -33,19 +35,21 @@ public class SearchResultsPage {
 		jsUtil = new JavaScriptUtil(driver);
 	}
 
+	@Step("getting all the products counts")
 	public int getResultsProdutCount() {
 		int searchCount = eleUtil.WaitForAllElementsVisible(resultsProduct, AppConstants.MEDIUM_DEFAULT_TIMEOUT).size();
 		System.out.println("Total number of search products through UI: " + searchCount);
 		return searchCount;
 	}
 
+	@Step("sort all the products by price ascending order")
 	public void doSortByAsc() {
 		eleUtil.doClickWithWait(sortByDropdown, AppConstants.MEDIUM_DEFAULT_TIMEOUT);
 
 		List<Double> priceListBeforeSort = getProductPriceData();
 		System.out.println("Actual product price list before sort" + priceListBeforeSort);
 
-		eleUtil.doClickWithWait(priceAsc, AppConstants.MEDIUM_DEFAULT_TIMEOUT);
+		eleUtil.doClickWithWait(priceAsc, AppConstants.LONG_DEFAULT_TIMEOUT);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
@@ -57,24 +61,12 @@ public class SearchResultsPage {
 		System.out.println("Actual product price list after sort" + priceListAfterSort);
 
 	}
-
-	public List<WebElement> getWebElementListSafely() {
-		List<WebElement> priceList;
-		try {
-
-			priceList = eleUtil.WaitForAllElementsVisible(productPrice, AppConstants.DEFAULT_TIMEOUT);
-			return priceList;
-
-		} catch (StaleElementReferenceException e) {
-
-			return eleUtil.WaitForAllElementsVisible(productPrice, AppConstants.DEFAULT_TIMEOUT);
-		}
-	}
-
+	
+	
 	private List<Double> getProductPriceData() {
 
 		List<Double> prices = new ArrayList<>();
-		List<WebElement> productPriceList = getWebElementListSafely();
+		List<WebElement> productPriceList = getWebElementList();
 
 		for (WebElement ele : productPriceList) {
 			String productvalue = ele.getText().replace("$", "").trim();
@@ -89,6 +81,22 @@ public class SearchResultsPage {
 		return prices;
 	}
 
+
+	private List<WebElement> getWebElementList() {
+		List<WebElement> priceList;
+		try {
+
+			priceList = eleUtil.WaitForAllElementsVisible(productPrice, AppConstants.DEFAULT_TIMEOUT);
+			return priceList;
+
+		} catch (StaleElementReferenceException e) {
+
+			return eleUtil.WaitForAllElementsVisible(productPrice, AppConstants.DEFAULT_TIMEOUT);
+		}
+	}
+
+	
+	@Step("checking products price list is sorted by ascending")
 	public boolean isProductSortedAscending() {
 
 		List<Double> actualPrices = getProductPriceData();
@@ -109,6 +117,7 @@ public class SearchResultsPage {
 
 	}
 
+	@Step("select a :{0} product and navigate to the product information page")
 	public ProductInforPage selectProduct(String productName) {
 		System.out.println("product name : " + productName);
 		WebElement productNameElement = eleUtil.getElement(By.partialLinkText(productName));

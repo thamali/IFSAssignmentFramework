@@ -14,7 +14,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.release>17</maven.compiler.release>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<aspectj.version>1.9.19</aspectj.version>
 		<selenium.version>4.28.1</selenium.version>
 	</properties>
@@ -24,13 +25,25 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>4.28.1</version>
+			<version>${selenium.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>7.7.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-testng</artifactId>
+			<version>2.23.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
 		</dependency>
 
 		<dependency>
@@ -71,6 +84,13 @@
         <version>5.3.2</version>
        
     </dependency>
+    
+    <dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.19.0</version>
+</dependency>
+
 
 	</dependencies>
 
@@ -96,7 +116,7 @@
 					<forkCount>3</forkCount>
 					<reuseForks>true</reuseForks>
 					<suiteXmlFiles>
-						  <suiteXmlFile>src/test/resources/testrunners/testng_regression.xml</suiteXmlFile>
+						  <suiteXmlFile>src/test/resources/testrunners/testng_sanity.xml</suiteXmlFile>
 						<!--<suiteXmlFile>${suiteXmlFile}</suiteXmlFile>-->
 					</suiteXmlFiles>
 					<argLine>

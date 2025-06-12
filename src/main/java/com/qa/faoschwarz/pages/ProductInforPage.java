@@ -11,6 +11,8 @@ import com.qa.faoschwarz.exceptions.BrowserException;
 import com.qa.faoschwarz.utils.ElementUtil;
 import com.qa.faoschwarz.utils.JavaScriptUtil;
 
+import io.qameta.allure.Step;
+
 public class ProductInforPage {
 
 	WebDriver driver;
@@ -31,11 +33,13 @@ public class ProductInforPage {
 
 	}
 
+	@Step("getting a selected product header")
 	public String getProductHeader() {
 		return eleUtil.WaitforElementVisible(productHeader, AppConstants.DEFAULT_TIMEOUT).getText();
 
 	}
 
+	@Step("Increasing item of the quantity up to : {0}")
 	public int increaseQantityWithPlusButton(int desiredQuantity) {
 
 		int targetQuantity = desiredQuantity;
@@ -56,6 +60,7 @@ public class ProductInforPage {
 		return finalQuantity;
 	}
 
+	
 	private int AddQuantityController(int targetQuantity, WebElement plusBtn) throws InterruptedException {
 
 		String initialQuantity = jsUtil.getElementValueByJS(quantityJSQuarySelector);
@@ -85,6 +90,7 @@ public class ProductInforPage {
 
 	}
 	
+	@Step("add to cart and navigate to cart slider page")
 	public CartSliderPage addProductToCart() {
 		eleUtil.doClick(addToCartBtn);
 		

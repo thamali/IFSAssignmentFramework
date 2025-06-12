@@ -4,6 +4,9 @@
 <suite name="FAOSchwarz App Test Sanity Suite" verbose="4"
 	>
 
+	<listeners>
+	      <listener class-name="com.qa.faoschwarz.listeners.TestAllureListener"/>
+	</listeners>
 
 	<test name="CartSlider Page Test">
 		<parameter name="browser" value="chrome" />

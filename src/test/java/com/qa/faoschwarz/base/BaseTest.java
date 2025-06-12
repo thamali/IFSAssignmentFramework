@@ -9,6 +9,8 @@ import com.qa.faoschwarz.utils.JavaScriptUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.ITestListener;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
@@ -20,6 +22,7 @@ import com.qa.faoschwarz.api.GetProductListAPI;
 import com.qa.faoschwarz.constants.AppConstants;
 import com.qa.faoschwarz.exceptions.BrowserException;
 import com.qa.faoschwarz.factory.DriverFactory;
+import com.qa.faoschwarz.listeners.TestAllureListener;
 import com.qa.faoschwarz.pages.CartSliderPage;
 import com.qa.faoschwarz.pages.HomePage;
 import com.qa.faoschwarz.pages.ProductInforPage;
@@ -64,8 +67,11 @@ public class BaseTest {
 
 	@AfterMethod
 	public void tearDown() {
+        
 		driver.quit();
 	}
+	
+	
 
 	private void acceptCookies() {
 		try {

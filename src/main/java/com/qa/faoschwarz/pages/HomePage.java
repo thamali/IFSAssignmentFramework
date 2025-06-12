@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.faoschwarz.utils.ElementUtil;
 
+import io.qameta.allure.Step;
+
 import static com.qa.faoschwarz.constants.AppConstants.*;
 
 import java.time.Duration;
@@ -30,6 +32,7 @@ public class HomePage {
 		eleUtil = new ElementUtil(driver);
 	}
 
+	@Step("getting home page title")
 	public String getHomePageTitle() {
 
 		String title = eleUtil.WaitForTitle(HOME_PAGE_TITLE, DEFAULT_TIMEOUT);
@@ -37,18 +40,21 @@ public class HomePage {
 		return title;
 	}
 
+	@Step("getting home page url")
 	public String getHomePageURL() {
 		String currentUrl = eleUtil.WaitForURLContains(HOME_PAGE_FRACTION_URL, DEFAULT_TIMEOUT);
 		System.out.println("Home Page URL : " + currentUrl);
 		return currentUrl;
 	}
 
+	@Step("checking home page logo exists")
 	public boolean isHomePageLogoDisplayed() {
 
 		return eleUtil.isElementDisplayed(logo);
 
 	}
 
+	@Step("checking home page site navigation headers exist")
 	public List<String> getHomePageSiteNavHeaders() {
 		
 		List<WebElement> navHeaderList = eleUtil.getElements(siteNavHeaders);
@@ -62,12 +68,14 @@ public class HomePage {
 		return navHeadertextList;
 	}
 
+	@Step("open search layout")
 	public boolean getSearchLayOut() {
 		eleUtil.doClick(searchIcon);
 		return eleUtil.isElementDisplayed(searchLayout); 
 
 	}
 
+	@Step("navigate to search results page that displayed : {0} products")
 	public SearchResultsPage doSearch(String searchKey) {
 		eleUtil.doClick(searchIcon);
 		eleUtil.doSendKeys(searchLayout, searchKey);
