@@ -9,13 +9,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
@@ -28,8 +27,11 @@ public class DriverFactory {
 
 	WebDriver driver;
 	Properties prop;
+	OptionsManager optionsManager;
 
 	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
+	
+	public static final Logger log=LogManager.getLogger(DriverFactory.class);
 
 	/**
 	 * This method is used to initialize the driver on the basis of given browser.
@@ -39,26 +41,30 @@ public class DriverFactory {
 	 * @param browserName
 	 */
 	public WebDriver initDriver(Properties prop) {
+		
+		log.info("properties" + prop);
 
 		String browserName = prop.getProperty("browser");
+        log.info("Browser Name :" + browserName);
+        optionsManager = new OptionsManager(prop);
 
-		System.out.println("Browser Name :" + browserName);
 
 		switch (browserName.toLowerCase().trim()) {
 		case "chrome":
-			tlDriver.set(new ChromeDriver());
+			tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
 			break;
 		case "firefox":
-			tlDriver.set(new FirefoxDriver());
+			tlDriver.set(new FirefoxDriver(optionsManager.getFirefoxOptions()));
 			break;
 		case "edge":
-			tlDriver.set(new EdgeDriver());
+			tlDriver.set(new EdgeDriver(optionsManager.getEdgeOptions()));
 			break;
 		case "safari":
 			tlDriver.set(new SafariDriver());
 			break;
 		default:
-			System.out.println("Please pass the valid browser name.." + browserName);
+			
+			log.error("Please pass the valid browser name.." + browserName);
 			throw new BrowserException("===INVALID BROWSER===");
 
 		}
@@ -93,8 +99,8 @@ public class DriverFactory {
 		prop = new Properties();
 		try {
 			if (envName == null) {
-				System.out.println("env is null,hence running the tests on QA env by defualt..");
-				ip = new FileInputStream("src/test/resources/config/qa.config.properties");
+				log.warn("env is null,hence running the tests on PROD env by defualt..");
+				ip = new FileInputStream("src/test/resources/config/config.properties");
 
 			} else {
 				System.out.println("Running tests on env" + envName);
@@ -110,6 +116,7 @@ public class DriverFactory {
 					break;
 
 				default:
+					log.error("----Invalid env name--------" + envName);
 					throw new FrameworkException("===INVALID ENV NAME===" + envName);
 
 				}

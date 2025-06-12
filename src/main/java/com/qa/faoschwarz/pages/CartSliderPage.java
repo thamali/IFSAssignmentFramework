@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,6 +25,8 @@ public class CartSliderPage {
 	WebDriver driver;
 	ElementUtil eleUtil;
 	JavaScriptUtil jsUtil;
+	
+	public static Logger log=LogManager.getLogger(CartSliderPage.class);
 
 	private final By CartSliderHeader = By.xpath("//div[@id='CartDrawer']//div[@class='h2 drawer__title']");
 	private final By cartItems = By.xpath("//div[@class='cart__items']");
@@ -60,11 +64,11 @@ public class CartSliderPage {
 									.xpath("//div[contains(@class,'cart__item-title') and contains(normalize-space(.),'"
 											+ productname + "')]/following-sibling::div//input[@class='js-qty__num']"))
 							.getDomAttribute("value");
-					System.out.println("Quantity display in cartSlider: " + productname);
+					log.info("Quantity display in cartSlider: " + productname);
 					return Integer.parseInt(quantityInput);
 				}
 			} catch (NoSuchElementException e) {
-				System.out.println("Quantity input not found for product: " + productname);
+				log.info("Quantity input not found for product: " + productname);
 
 			}
 		}
@@ -78,7 +82,7 @@ public class CartSliderPage {
 
 		List<WebElement> itemsCountList = eleUtil.WaitForAllElementsVisible(cartItems, AppConstants.DEFAULT_TIMEOUT);
 
-		System.out.println("=== SHOPPING CART CALCULATION ===");
+		log.info("=== SHOPPING CART CALCULATION ===");
 		double subTotal = 0.0;
 
 		for (WebElement item : itemsCountList) {
@@ -92,17 +96,18 @@ public class CartSliderPage {
 				double totalOfItem = quantity * unitPrice;
 				subTotal += totalOfItem;
 
-				System.out.println("Product: " + productName);
-				System.out.println("Quantity: " + quantity);
-				System.out.println("Unit Price: $" + unitPrice);
-				System.out.println("Item Total: $" + totalOfItem);
+				log.info("Product: " + productName);
+				log.info("Quantity: " + quantity);
+				log.info("Unit Price: $" + unitPrice);
+				log.info("Item Total: $" + totalOfItem);
 
 			} catch (Exception e) {
+				log.warn("=====Please check calculation==========");
 				throw new BrowserException("===CHECK CALCULATION===");
 			}
 
 		}
-		System.out.println("Sub Total: $" + subTotal);
+		log.info("Sub Total: $" + subTotal);
 		return subTotal;
 
 	}
@@ -178,7 +183,7 @@ public class CartSliderPage {
 		WebElement subTotalElement = eleUtil.WaitforElementVisible(subTotal, AppConstants.MEDIUM_DEFAULT_TIMEOUT);
 
 		String subTotalVal = subTotalElement.getText().replace("$", "").trim();
-		System.out.println("Sub Total: $" + subTotalVal);
+		log.info("Sub Total: $" + subTotalVal);
 
 		return Double.parseDouble(subTotalVal);
 
@@ -188,10 +193,10 @@ public class CartSliderPage {
 	public boolean isChatIconDisplayOnCartSlider() {
 		try {
 
-			System.out.println("Switching to iframe...");
+			log.info("Switching to iframe...");
 
 			eleUtil.waitForFrameAndSwitchToIt(framelocator, AppConstants.DEFAULT_TIMEOUT);
-			System.out.println("Successfully switched to iframe");
+			log.info("Successfully switched to iframe");
 
 			Thread.sleep(2000);
 

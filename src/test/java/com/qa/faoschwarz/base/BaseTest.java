@@ -9,7 +9,9 @@ import com.qa.faoschwarz.utils.JavaScriptUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.ITestContext;
 import org.testng.ITestListener;
+import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -35,6 +37,7 @@ public class BaseTest {
 	JavaScriptUtil js;
 	ElementUtil eleUtil;
 
+
 	protected HomePage homePage;
 	protected SearchResultsPage searchResultsPage;
 	protected GetProductListAPI getProductListApi;
@@ -44,6 +47,7 @@ public class BaseTest {
 	@Parameters({ "browser" })
 	@BeforeMethod
 	public void setup(String browserName) {
+			
 		df = new DriverFactory();
 		prop = df.initProp();
 
@@ -55,25 +59,21 @@ public class BaseTest {
 
 		js = new JavaScriptUtil(driver);
 		eleUtil = new ElementUtil(driver);
+	
 
 		js.injectPopupBlockingCSS();
 		js.removePopupElements();
 		js.disablePopupWithJavaScript();
 
 		acceptCookies();
+		
 		homePage = new HomePage(driver);
+		
 
 	}
-
-	@AfterMethod
-	public void tearDown() {
-        
-		driver.quit();
-	}
 	
-	
-
 	private void acceptCookies() {
+		 	
 		try {
 
 			final By acceptCookieBtn = By.xpath("//button[@id='onetrust-accept-btn-handler']");
@@ -84,4 +84,5 @@ public class BaseTest {
 			throw new BrowserException("==Cookie banner not present====");
 		}
 	}
+	
 }

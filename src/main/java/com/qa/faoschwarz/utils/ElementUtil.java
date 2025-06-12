@@ -8,6 +8,8 @@ import java.util.NoSuchElementException;
 
 import javax.management.RuntimeErrorException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -19,9 +21,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.qa.faoschwarz.factory.DriverFactory;
+
 public class ElementUtil {
 
 	public WebDriver driver;
+	public static Logger log=LogManager.getLogger(ElementUtil.class);
 
 	public ElementUtil(WebDriver driver) {
 
@@ -62,14 +67,14 @@ public class ElementUtil {
 
 	public String doElementGetText(By locator) {
 		String eleText = getElement(locator).getText();
-		System.out.println("element text is :" + eleText);
+		log.info("element text is :" + eleText);
 		return eleText;
 
 	}
 
 	public int getElementsCount(By locator) {
 		int eleCount = getElements(locator).size();
-		System.out.println("Element list count is :" + eleCount);
+		log.info("Element list count is :" + eleCount);
 		return eleCount;
 	}
 
@@ -101,7 +106,7 @@ public class ElementUtil {
 		
 		} catch (NoSuchElementException e) {
 
-			System.out.println("Element is not presence on the page :" + locator);
+		log.info("Element is not presence on the page :" + locator);
 			return false;
 		}
 	}

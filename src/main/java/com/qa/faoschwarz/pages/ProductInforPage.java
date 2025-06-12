@@ -1,5 +1,7 @@
 package com.qa.faoschwarz.pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +20,8 @@ public class ProductInforPage {
 	WebDriver driver;
 	ElementUtil eleUtil;
 	JavaScriptUtil jsUtil;
+	
+	public static Logger log=LogManager.getLogger(ProductInforPage.class);
 
 	private final By productHeader = By.tagName("h1");
 	private final By plusButton = By.xpath(
@@ -56,7 +60,7 @@ public class ProductInforPage {
 			e.printStackTrace();
 		}
 
-		System.out.println("Current updated quantity :" + finalQuantity);
+	    log.info("Current updated quantity :" + finalQuantity);
 		return finalQuantity;
 	}
 
@@ -85,7 +89,7 @@ public class ProductInforPage {
 			currentQuantity = newQuantity;
 
 		}
-		System.out.println("Clicked plus button attempts : " + clickCount);
+		log.info("Clicked plus button attempts : " + clickCount);
 		return currentQuantity;
 
 	}

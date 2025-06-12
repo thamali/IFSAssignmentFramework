@@ -1,5 +1,7 @@
 package com.qa.faoschwarz.pages;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -7,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.qa.faoschwarz.factory.DriverFactory;
 import com.qa.faoschwarz.utils.ElementUtil;
 
 import io.qameta.allure.Step;
@@ -21,6 +24,8 @@ public class HomePage {
 
 	private WebDriver driver;
 	private ElementUtil eleUtil;
+	
+	public static Logger log=LogManager.getLogger(HomePage.class);
 
 	private final By logo = By.xpath("//a[contains(@class, 'logo--has-inverted')]/img[1]");
 	private final By siteNavHeaders = By.xpath("//li[contains(@class,'site-nav__item')]/a");
@@ -36,14 +41,14 @@ public class HomePage {
 	public String getHomePageTitle() {
 
 		String title = eleUtil.WaitForTitle(HOME_PAGE_TITLE, DEFAULT_TIMEOUT);
-		System.out.println("Home Page Title : " + title);
+	    log.info("Home Page Title : " + title);
 		return title;
 	}
 
 	@Step("getting home page url")
 	public String getHomePageURL() {
 		String currentUrl = eleUtil.WaitForURLContains(HOME_PAGE_FRACTION_URL, DEFAULT_TIMEOUT);
-		System.out.println("Home Page URL : " + currentUrl);
+		log.info("Home Page URL : " + currentUrl);
 		return currentUrl;
 	}
 
@@ -64,7 +69,7 @@ public class HomePage {
 			String text = e.getText();
 			navHeadertextList.add(text);
 		}
-		System.out.println("Home Page Site Nav Headers" + navHeadertextList);
+		log.info("Home Page Site Nav Headers" + navHeadertextList);
 		return navHeadertextList;
 	}
 

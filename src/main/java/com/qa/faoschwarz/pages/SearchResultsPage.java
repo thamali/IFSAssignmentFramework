@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -12,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import com.qa.faoschwarz.constants.AppConstants;
+import com.qa.faoschwarz.factory.DriverFactory;
 import com.qa.faoschwarz.utils.ElementUtil;
 import com.qa.faoschwarz.utils.JavaScriptUtil;
 
@@ -22,12 +25,14 @@ public class SearchResultsPage {
 	WebDriver driver;
 	private ElementUtil eleUtil;
 	private JavaScriptUtil jsUtil;
+	
+	public static Logger log=LogManager.getLogger(SearchResultsPage.class);
+	
 	private final By resultsProduct = By.xpath("//div[@class='kuResults']//li");
 	private final By sortByDropdown = By.cssSelector(".kuDropSortBy");
 	private final By priceAsc = By.xpath("//div[@data-value='PRICE_ASC']");
 	private final By productPrice = By.xpath("//span[contains(@class, \"kuSalePrice\")]");
 
-	//private Map<String, String> productPriceMap;
 
 	public SearchResultsPage(WebDriver driver) {
 		this.driver = driver;
@@ -38,7 +43,7 @@ public class SearchResultsPage {
 	@Step("getting all the products counts")
 	public int getResultsProdutCount() {
 		int searchCount = eleUtil.WaitForAllElementsVisible(resultsProduct, AppConstants.MEDIUM_DEFAULT_TIMEOUT).size();
-		System.out.println("Total number of search products through UI: " + searchCount);
+		log.info("Total number of search products through UI: " + searchCount);
 		return searchCount;
 	}
 
@@ -47,7 +52,7 @@ public class SearchResultsPage {
 		eleUtil.doClickWithWait(sortByDropdown, AppConstants.MEDIUM_DEFAULT_TIMEOUT);
 
 		List<Double> priceListBeforeSort = getProductPriceData();
-		System.out.println("Actual product price list before sort" + priceListBeforeSort);
+		log.info("Actual product price list before sort" + priceListBeforeSort);
 
 		eleUtil.doClickWithWait(priceAsc, AppConstants.LONG_DEFAULT_TIMEOUT);
 		try {
@@ -58,7 +63,7 @@ public class SearchResultsPage {
 		}
 
 		List<Double> priceListAfterSort = getProductPriceData();
-		System.out.println("Actual product price list after sort" + priceListAfterSort);
+		log.info("Actual product price list after sort" + priceListAfterSort);
 
 	}
 	
@@ -112,14 +117,14 @@ public class SearchResultsPage {
 			}
 
 		}
-		System.out.println("Products are sorted in ascending order");
+		log.info("Products are sorted in ascending order");
 		return isSorted = true;
 
 	}
 
 	@Step("select a :{0} product and navigate to the product information page")
 	public ProductInforPage selectProduct(String productName) {
-		System.out.println("product name : " + productName);
+		log.info("product name : " + productName);
 		WebElement productNameElement = eleUtil.getElement(By.partialLinkText(productName));
 		jsUtil.clickElementByJS(productNameElement);
 		return new ProductInforPage(driver);
