@@ -38,7 +38,7 @@ public class CartSliderPageTest extends BaseTest {
 		cartSliderPage=productInforPage.addProductToCart();	
 		String actCartSliderHeader=cartSliderPage.getCartSliderHeader();
 		
-		Assert.assertEquals(actCartSliderHeader, "Cartz");
+		Assert.assertEquals(actCartSliderHeader, "Cart");
 
 	}
 	

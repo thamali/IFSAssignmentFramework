@@ -33,7 +33,7 @@ public class DriverFactory {
 
 	/**
 	 * This method is used to initialize the driver on the basis of given browser.
-	 * initialize thread Local driver to create local copy of each and every
+	 * Here initialize thread Local driver to create local copy of each and every
 	 * driver.(So thread safe)
 	 * 
 	 * @param browserName
@@ -94,7 +94,7 @@ public class DriverFactory {
 		try {
 			if (envName == null) {
 				System.out.println("env is null,hence running the tests on QA env by defualt..");
-				ip = new FileInputStream("src\\test\\resources\\config\\qa.config.properties");
+				ip = new FileInputStream("src/test/resources/config/qa.config.properties");
 
 			} else {
 				System.out.println("Running tests on env" + envName);

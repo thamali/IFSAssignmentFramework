@@ -6,6 +6,7 @@
 	
 		<listeners>
 	      <listener class-name="com.qa.faoschwarz.listeners.TestAllureListener"/>
+	       <listener class-name="com.qa.faoschwarz.listeners.AnnotationTransformer"/>
 	</listeners>
 
 <test name="Home Page Test">
