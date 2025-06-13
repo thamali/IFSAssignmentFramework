@@ -29,7 +29,7 @@ public class CartSliderPageTest extends BaseTest {
 	
 	@Severity(SeverityLevel.CRITICAL)
 	@Test(description = "Verify cartSlider loaded properly", dataProvider = "getProductQuantityTestData")
-	public void CartSliderHeaderTest(String searchProduct, String productName, int desiredQuantity) {
+	public void cartSliderHeaderTest(String searchProduct, String productName, int desiredQuantity) {
 		searchResultsPage = homePage.doSearch(searchProduct);
 		searchResultsPage.doSortByAsc();
 		productInforPage = searchResultsPage.selectProduct(productName);
@@ -44,7 +44,7 @@ public class CartSliderPageTest extends BaseTest {
 	
 	@Severity(SeverityLevel.CRITICAL)
 	@Test(description = "Verify cartSlider quantity is matched with selected quantity", dataProvider = "getProductQuantityTestData")
-	public void CartSliderQuantityTest(String searchProduct, String productName, int desiredQuantity) {
+	public void cartSliderQuantityTest(String searchProduct, String productName, int desiredQuantity) {
 		searchResultsPage = homePage.doSearch(searchProduct);
 		searchResultsPage.doSortByAsc();
 		productInforPage = searchResultsPage.selectProduct(productName);
@@ -58,7 +58,7 @@ public class CartSliderPageTest extends BaseTest {
 	
 	@Severity(SeverityLevel.CRITICAL)
 	@Test(description = "Verify cartSlider subtotal is matched with calculated total", dataProvider = "getProductQuantityTestData")
-	public void CartSliderSubTotalTest(String searchProduct, String productName, int desiredQuantity){
+	public void cartSliderSubTotalTest(String searchProduct, String productName, int desiredQuantity){
 		searchResultsPage = homePage.doSearch(searchProduct);
 		searchResultsPage.doSortByAsc();
 		productInforPage = searchResultsPage.selectProduct(productName);

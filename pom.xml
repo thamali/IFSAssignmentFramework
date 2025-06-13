@@ -9,8 +9,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>FAOSchwarz_SeleniumFramework</name>
-	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
+	<url>http://www.faoschwarz.com</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -51,33 +50,6 @@
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.24.3</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi</artifactId>
-			<version>3.9</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>3.9</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml-schemas</artifactId>
-			<version>3.9</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-scratchpad</artifactId>
-			<version>3.9</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>ooxml-schemas</artifactId>
-			<version>1.1</version>
 		</dependency>
 
 		<dependency>

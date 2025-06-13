@@ -17,10 +17,23 @@ public class JavaScriptUtil {
 
 	}
 
+	/**
+	 *Performs a click action on the specified web element using JavaScript execution. 
+	 *Useful when standard Selenium click actions do not work due to overlays or dynamic UI issues.
+	 * 
+	 * @param element
+	 * 
+	 */
 	public void clickElementByJS(WebElement element) {
 		js.executeScript("arguments[0].click();", element);
 	}
 
+	/** 
+	 * Retrieves and returns the value attribute of the first DOM element matching the provided CSS selector using JavaScript.
+	 * 
+	 * @param qrySelector
+	 * @return
+	 */
 	public String getElementValueByJS(String  qrySelector) {
 		return js.executeScript(
 	            "return document.querySelector('"+qrySelector+"').value;"
@@ -28,7 +41,11 @@ public class JavaScriptUtil {
 	}
 	
 	 
-	 public void disablePopupWithJavaScript() {
+	/**
+	 * Attempts to hide and remove a specific popup (identified as body > div:nth-child(104)) from the page using JavaScript. 
+	 * It also logs the result and handles potential errors during execution.
+	 */
+	 public void disablePopupWithJavaScript(String popupSelector) {
 	     
 	        try {
 	            Thread.sleep(3000);
@@ -37,7 +54,7 @@ public class JavaScriptUtil {
 	        }
 	        
 	        String script = "try { " +
-	            "var popup = document.querySelector('body > div:nth-child(104)'); " +
+	            "var popup = document.querySelector('"+popupSelector+"; " +
 	            "if (popup) { " +
 	                "popup.style.display = 'none'; " +
 	                "popup.remove(); " +
@@ -58,12 +75,19 @@ public class JavaScriptUtil {
 	        }
 	    }
 	    
+/**
+ * Removes specific popup elements from the page by:
 
-	    public void removePopupElements() {
+    Removing the element matching body > div:nth-child(104)
+
+    Removing all elements whose class names contain "popup" or "modal"
+    Logs the outcome or any errors encountered.
+ */
+	    public void removePopupElements(String popupSelector) {
 	        try {
 	         
 	            js.executeScript(
-	                "var element = document.querySelector('body > div:nth-child(104)'); " +
+	                "var element = document.querySelector('"+popupSelector+"; " +
 	                "if (element) { element.remove(); }"
 	            );
 	            
@@ -79,12 +103,15 @@ public class JavaScriptUtil {
 	        }
 	    }
 	    
-	 
-	  public void injectPopupBlockingCSS() {
+	 /**
+	  * Injects a CSS style block into the page that hides the popup (body > div:nth-child(104)) and any elements with class names containing "popup" or "modal". 
+	  * This prevents such popups from displaying by setting their display property to none !important
+	  */
+	  public void injectPopupBlockingCSS(String popupSelector) {
 	        try {
 	            String cssScript = 
 	                "var style = document.createElement('style'); " +
-	                "style.innerHTML = 'body > div:nth-child(104) { display: none !important; } " +
+	                "style.innerHTML = '"+popupSelector+" { display: none !important; } " +
 	                "[class*=\"popup\"], [class*=\"modal\"] { display: none !important; }'; " +
 	                "document.head.appendChild(style);";
 	            

@@ -35,7 +35,7 @@ public class ProductInforPageTest extends BaseTest {
 
 	@Severity(SeverityLevel.CRITICAL)
 	@Test(description = "Verify selected product is loaded properly in product load page", dataProvider = "getProductTestData")
-	public void ProductHeaderTest(String searchProduct, String productName, String FullProductName) {
+	public void productHeaderTest(String searchProduct, String productName, String FullProductName) {
 		searchResultsPage = homePage.doSearch(searchProduct);
 		searchResultsPage.doSortByAsc();
 		productInforPage = searchResultsPage.selectProduct(productName);

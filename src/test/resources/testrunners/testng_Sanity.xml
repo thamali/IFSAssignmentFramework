@@ -11,9 +11,19 @@
 
 	<test name="CartSlider Page Test">
 		<parameter name="browser" value="chrome" />
+		 
 
 		<classes>
-			<class name="com.qa.faoschwarz.tests.CartSliderPageTest" />
+			<class name="com.qa.faoschwarz.tests.CartSliderPageTest">
+			  <methods>
+			  
+			        <include name="cartSliderHeaderTest"/>
+			        <include name="cartSliderQuantityTest"/>
+			        <include name="cartSliderSubTotalTest"/>
+			        <include name="validateChatIcon"/>
+			  
+			  </methods>
+			    </class>
 		</classes>
 	</test>
 	

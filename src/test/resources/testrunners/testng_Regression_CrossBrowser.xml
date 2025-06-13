@@ -12,19 +12,43 @@
 <test name="Home Page Test">
 		<parameter name="browser" value="chrome" />
 		<classes>
-			<class name="com.qa.faoschwarz.tests.HomePageTest" />
+			<class name="com.qa.faoschwarz.tests.HomePageTest" >
+			 <methods>
+			  
+			        <include name="homePageTitleTest"/>
+			        <include name="homePageURLTest"/>
+			        <include name="validateHomePageLogoLoaded"/>
+			        <include name="getHomePageSiteNavHeaders"/>
+			        <include name="validateSearchLayoutLoading"/>
+			  
+			  </methods>
+			</class>
 		</classes>
 	</test>
 	<test name="Search Page Test">
 		<parameter name="browser" value="firefox" />
 		<classes>
-			<class name="com.qa.faoschwarz.tests.SearchPageTest" />
+			<class name="com.qa.faoschwarz.tests.SearchPageTest">
+			 <methods>
+			  
+			        <include name="searchProductTest"/>
+			        <include name="sortTestByLowToHigh"/>
+			  
+			  </methods>
+			</class>
 		</classes>
 	</test>
 	<test name="Product Information Page Test">
 		<parameter name="browser" value="edge" />
 		<classes>
-			<class name="com.qa.faoschwarz.tests.ProductInforPageTest" />
+			<class name="com.qa.faoschwarz.tests.ProductInforPageTest">
+			<methods>
+			  
+			        <include name="productHeaderTest"/>
+			        <include name="increaseQantityTest"/>
+			  
+			  </methods>
+			</class>
 		</classes>
 	</test>
 
@@ -32,7 +56,16 @@
 		<parameter name="browser" value="chrome" />
 
 		<classes>
-			<class name="com.qa.faoschwarz.tests.CartSliderPageTest" />
+			<class name="com.qa.faoschwarz.tests.CartSliderPageTest" >
+			  <methods>
+			  
+			        <include name="cartSliderHeaderTest"/>
+			        <include name="cartSliderQuantityTest"/>
+			        <include name="cartSliderSubTotalTest"/>
+			        <include name="validateChatIcon"/>
+			  
+			  </methods>
+			    </class>
 		</classes>
 	</test>
 	

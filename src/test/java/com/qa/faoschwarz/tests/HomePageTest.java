@@ -30,7 +30,7 @@ public class HomePageTest extends BaseTest {
     
 	@Severity(SeverityLevel.MINOR)
 	@Test(description = "Verify Home Page Url")
-	public void loginPageURLTest() {
+	public void homePageURLTest() {
 		String actURL = homePage.getHomePageURL();
 		Assert.assertTrue(actURL.contains(HOME_PAGE_FRACTION_URL));
 	}

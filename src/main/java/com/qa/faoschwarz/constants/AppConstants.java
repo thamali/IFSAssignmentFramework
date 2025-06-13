@@ -2,6 +2,8 @@ package com.qa.faoschwarz.constants;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
+
 public class AppConstants {
 	
 	public static final int DEFAULT_TIMEOUT=5;
@@ -13,6 +15,11 @@ public class AppConstants {
 	
 	public static List<String> homePageSiteNavHeadersList=List.of("New","Shop By Age",
 			                                                            "Shop By Category","Brands","FAOMG!","Sale");
+	
+	public static final String POPUP_SELECTOR = "body > div:nth-child(104)";
+	
+	public static final By ACCEPT_COOKIE_BTN = By.xpath("//button[@id='onetrust-accept-btn-handler']");
+
 	
 	
 }
