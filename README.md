@@ -1,6 +1,6 @@
 # FAO Schwarz Selenium Framework
 
-A robust, maintainable automation framework designed for end-to-end testing of the FAO Schwarz website.This project leverages Selenium WebDriver, TestNG, and Allure to automate web and API tests, generate detailed reports, and ensure the quality and reliability of the FAO Schwarz online experience.
+A robust, maintainable automation framework designed for end-to-end testing of the FAO Schwarz website. This project leverages Selenium WebDriver, TestNG, and Allure to automate web and API tests, generate detailed reports, and ensure the quality and reliability of the FAO Schwarz online experience.
 
 ## Automation Scope
 
@@ -46,17 +46,22 @@ Below is a summary of key files and their purposes within the `src` directory:
 - **listeners/**: TestNG listeners for logging, reporting,Retry and event handling during test execution.
 - **pages/**: Contains Page Object Model (POM) classes representing web pages with web elements and their actions.
 - **driverFactory/**: Manages WebDriver instances and browser setup for test execution.
-- **utils/**: Includes utility classes for waits,and other reusable helpers
+- **utils/ExcelUtil.java**: Utility class for reading and writing Excel files using Apache POI for data-driven testing.
+- **utils/CSVUtil.java**: Utility class for reading and writing CSV files using OpenCSV.
+- **utils/**: Includes other utility classes for waits, reusable helpers, and web element interactions (e.g., clicks, waits, visibility checks).
 - **api/**: Includes classes for REST API testing using Rest-Assured.
-- **utils/**: Provides reusable methods for interacting with web elements (e.g., clicks, waits, visibility checks).
 
 ### `src/test/java/com/faoschwarz/`
 - **tests/**: Contains TestNG test classes that implement test scenarios for the FAO Schwarz website.
 - **base/BaseTest.java**: Serves as the base class for all test classes, handling common setup and teardown logic such as WebDriver initialization, configuration loading, and test environment preparation.
 
 ### `src/main/resources/`
-- **config/**: Stores environment-specific configuration files (e.g., QA, Staging, Production).
 - **log4j2.xml**: Log4j2 configuration file for logging setup.
+
+### `src/test/resources/`
+- **testng.xml**: TestNG suite configuration file for organizing and running test groups.
+- **config.properties**: Centralized configuration file for environment variables and framework settings.
+- **testdata/**: Directory for storing test data files (e.g., Excel, CSV) used in data-driven testing.
 
 This summary helps you quickly identify the purpose of each major file and folder in the source directory.
 
@@ -76,24 +81,25 @@ This summary helps you quickly identify the purpose of each major file and folde
 - **Page Object Model (POM):** The framework follows the Page Object Model design pattern, organizing web page interactions into dedicated classes.
 - **Modular Test Structure:** Test logic is separated from page interactions, allowing for easy updates and scalability as the application evolves.
 - **Centralized Element Locators:** All web element locators are maintained within their respective page classes, reducing duplication and simplifying maintenance.
-- **Reusable Page Actions:** Common user actions (e.g., login, navigation, form submission) are implemented as methods in page classes, enabling concise and readable test scripts 
-- **Allure for Rich Test Reporting**:Generates interactive and detailed test reports with Allure. 
-- **TakesScreenshot Utility**: Captures screenshots during test execution, especially on failures, for debugging and reporting purposes.
-- **Allure Screenshot Attachment**: Automatically attaches captured screenshots to Allure reports for enhanced visibility of test results
-- **TestNG Listeners Integration**: Utilizes custom listeners in `listeners/` for logging, reporting, event handling, and enhanced test lifecycle management.
-- **listeners/RetryAnalyzer.java**: Provides a retry mechanism for failed tests.
-- **testng.xml**: TestNG suite configuration file supporting parallel and browser-wise parallel execution.
-- **config.properties**: Centralized configuration file for environment variables and framework settings.
-- **driver/ThreadLocalDriver**: Implements thread-safe WebDriver management for parallel test execution.
-- **Data Providers**: Supplies test data to TestNG tests for data-driven execution.
-- **Comprehensive Logging**: Integrates Log4j2 for detailed logging of test execution and framework events.
-- **Parallel Execution**: Enabled via TestNG and ThreadLocal WebDriver for faster test runs.
-- **Browser-wise Parallel Execution**: Supports running tests in parallel across different browsers (e.g., Chrome, Firefox) using TestNG configuration.
-- **ChromeOptions (headless, incognito)**: Customizable browser options for headless and incognito test execution.
-- **Reusable Utilities**: Offers utility classes for common actions like waits, element interactions, and browser operations.
-- **utils/JavaScriptUtils.java**: Contains utilities for executing JavaScript commands, scrolling, and interacting with elements via JavaScriptExecutor and Handles browser cookie operation
-- **REST API Testing Support**: Includes API testing capabilities using Rest-Assured for end-to-end validation.
----
+- **Reusable Page Actions:** Common user actions (e.g., login, navigation, form submission) are implemented as methods in page classes, enabling concise and readable test scripts.
+- **Allure for Rich Test Reporting:** Generates interactive and detailed test reports with Allure. 
+- **TakesScreenshot Utility:** Captures screenshots during test execution, especially on failures, for debugging and reporting purposes.
+- **Allure Screenshot Attachment:** Automatically attaches captured screenshots to Allure reports for enhanced visibility of test results
+- **TestNG Listeners Integration:** Utilizes custom listeners in `listeners/` for logging, reporting, event handling, and enhanced test lifecycle management.
+- **listeners/RetryAnalyzer.java:** Provides a retry mechanism for failed tests.
+- **testng.xml:** TestNG suite configuration file supporting parallel and browser-wise parallel execution.
+- **config.properties:** Centralized configuration file for environment variables and framework settings.
+- **driver/ThreadLocalDriver:** Implements thread-safe WebDriver management for parallel test execution.
+- **Data Providers:** Supplies test data to TestNG tests for data-driven execution.
+- **Comprehensive Logging:** Integrates Log4j2 for detailed logging of test execution and framework events.
+- **Parallel Execution:** Enabled via TestNG and ThreadLocal WebDriver for faster test runs.
+- **Browser-wise Parallel Execution:** Supports running tests in parallel across different browsers (e.g., Chrome, Firefox) using TestNG configuration.
+- **ChromeOptions (headless, incognito):** Customizable browser options for headless and incognito test execution.
+- **Reusable Utilities:** Offers utility classes for common actions like waits, element interactions, and browser operations.
+- **utils/JavaScriptUtils.java:** Contains utilities for executing JavaScript commands, scrolling, and interacting with elements via JavaScriptExecutor and handles browser cookie operation
+- **REST API Testing Support:** Includes API testing capabilities using Rest-Assured for end-to-end validation.
+- **ExcelUtil & CSVUtil:** Data-driven testing support for Excel and CSV files using Apache POI and OpenCSV. Easily read/write test data from Excel and CSV files for parameterized and large-scale test scenarios.
+
 
 ## Tech Stack
 - Java 17
@@ -103,6 +109,8 @@ This summary helps you quickly identify the purpose of each major file and folde
 - Allure 2.23.0
 - Log4j2
 - Rest-Assured
+- Apache POI (Excel support)
+- OpenCSV (CSV support)
 
 ## Project Structure
 ```
@@ -126,9 +134,6 @@ test-output/    # TestNG output
 2. **Install dependencies:**
    ```powershell
    mvn clean install
-   ```
-3. **Configure browser drivers:**
-   - Ensure the required WebDriver executables (e.g., chromedriver.exe, geckodriver.exe) are available in your PATH or configured in the framework.
 
 ## Running Tests
 To execute all tests:
@@ -157,3 +162,5 @@ mvn clean test -Denv="prod" -DsuiteXmlFile=src/test/resources/testng_Sanity.xml
 
 - Thamali T (thamali1989@gmail.com)
 ---
+
+*Updated on June 19, 2025*

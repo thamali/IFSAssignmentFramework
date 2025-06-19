@@ -19,6 +19,8 @@ public class AppConstants {
 	public static final String POPUP_SELECTOR = "body > div:nth-child(104)";
 	
 	public static final By ACCEPT_COOKIE_BTN = By.xpath("//button[@id='onetrust-accept-btn-handler']");
+	
+	public static final String PRODUCT_SHEET_NAME = "product";
 
 	
 	
