@@ -142,7 +142,7 @@ mvn clean test
 ```
 To run tests with a specific environment and a custom TestNG suite (e.g., Production with a sanity suite):
 ```powershell
-mvn clean test -Denv="prod" -DsuiteXmlFile=src/test/resources/testng_Sanity.xml
+mvn clean test -Denv="prod" -DsuiteXmlFile=src/test/resources/testrunners/testng_Sanity.xml
 ```
 
 ## Reporting
